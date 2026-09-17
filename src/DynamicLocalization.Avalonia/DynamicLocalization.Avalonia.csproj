@@ -5,12 +5,10 @@
         <IsPackable>true</IsPackable>
         <PackageId>Tulesha.DynamicLocalization.Avalonia</PackageId>
         <Description>Dynamic, hot-swappable localization for Avalonia applications with plugin support.</Description>
-        <!-- TODO: PackageProjectUrl/RepositoryUrl need a real repo URL before publishing - see
-             README's "Publishing to NuGet" section. -->
         <Authors>Tulesha</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageProjectUrl>TODO</PackageProjectUrl>
-        <RepositoryUrl>TODO</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Tulesha/DynamicLocalization.Avalonia</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Tulesha/DynamicLocalization.Avalonia</RepositoryUrl>
         <PackageTags>avalonia;localization;i18n;source-generator</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <!-- The package carries its own PDB/source-link-style debugging info instead of a

@@ -16,6 +16,6 @@
         <IsPackable>false</IsPackable>
         <!-- Centralized so every project's AssemblyVersion/FileVersion/PackageVersion agree.
              TODO: bump on every release; still pre-1.0 while the public API is settling. -->
-        <Version>0.1.0</Version>
+        <Version>11.3.18</Version>
     </PropertyGroup>
 </Project>
