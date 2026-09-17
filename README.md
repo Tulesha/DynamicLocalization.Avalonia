@@ -53,6 +53,31 @@ format them with `string.Format` on the consuming side (see the `Greeting` examp
 
 ### 1. Reference the library and the generator from a plugin project
 
+Install the NuGet package in the project that owns the `localization.json` (a plugin, or the app
+itself if it isn't split into plugins):
+
+```xml
+<ItemGroup>
+  <PackageReference Include="Tulesha.DynamicLocalization.Avalonia" Version="x.y.z" />
+</ItemGroup>
+
+<ItemGroup>
+  <AdditionalFiles Include="localization.json" />
+</ItemGroup>
+```
+
+or via the CLI:
+
+```bash
+dotnet add package Tulesha.DynamicLocalization.Avalonia
+```
+
+That's the whole reference - no `OutputItemType="Analyzer"` or `ReferenceOutputAssembly="false"`
+needed. The package bundles the source generator as a Roslyn analyzer
+(`analyzers/dotnet/cs/DynamicLocalization.Avalonia.SourceGenerator.dll`), which NuGet wires up
+automatically for a `PackageReference`; that extra wiring is only needed when referencing the
+generator project directly, e.g. from inside this repo:
+
 ```xml
 <ItemGroup>
   <AdditionalFiles Include="localization.json" />
