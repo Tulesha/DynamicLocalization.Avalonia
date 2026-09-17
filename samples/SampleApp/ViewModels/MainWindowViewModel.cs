@@ -9,14 +9,26 @@ namespace SampleApp.ViewModels;
 /// <summary>
 ///     Demonstrates the two ways to consume DynamicAvaloniaLocalization from a ViewModel:
 ///     - PluginA (statically referenced) via the source-generated, resx-like typed accessors.
-///     - PluginB (loaded at runtime, unknown at compile time) via LocalizationManager.Get(module, key),
+///     - PluginB (loaded at runtime, unknown at compile time) via ILocalizationManager.Get(module, key),
 ///     which is the only option available for an assembly the host never compiled against.
-///     Both refresh live: the constructor subscribes to LocalizationManager.CultureChanged and
+///     Both refresh live: the constructor subscribes to ILocalizationManager.CultureChanged and
 ///     re-raises PropertyChanged(string.Empty), which CommunityToolkit.Mvvm treats as "every
 ///     property may have changed" - the standard MVVM idiom for a global locale switch.
 /// </summary>
+/// <remarks>
+///     The <see cref="ILocalizationManager" /> is constructor-injected rather than read from
+///     <see cref="LocalizationManager.Instance" /> directly, so this ViewModel can be unit-tested
+///     against an isolated instance (or a fake) instead of the process-wide singleton - see
+///     <c>App.axaml.cs</c> for where the DI container binds the interface to
+///     <see cref="LocalizationManager.Instance" />. The generated <c>PluginALocalization</c>
+///     accessors below still call <see cref="LocalizationManager.Instance" /> internally: they're
+///     static, source-generated properties with no constructor to inject into, so DI can't reach
+///     them - only the hand-written PluginB/locale-switching code in this class benefits.
+/// </remarks>
 public partial class MainWindowViewModel : ObservableObject
 {
+    private readonly ILocalizationManager _localization;
+
     // --- PluginB (dynamic plugin), consumed via the module/key string API -------------------
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(LoadPluginBCommand))]
@@ -26,9 +38,10 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty] private string _userName = "Alice";
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(ILocalizationManager localization)
     {
-        LocalizationManager.Instance.CultureChanged += OnCultureChanged;
+        _localization = localization ?? throw new ArgumentNullException(nameof(localization));
+        _localization.CultureChanged += OnCultureChanged;
     }
 
     // --- PluginA (static plugin), consumed via generated typed properties -------------------
@@ -43,19 +56,19 @@ public partial class MainWindowViewModel : ObservableObject
 
     public string StaticGreeting => string.Format(PluginALocalization.Greeting, UserName);
 
-    public string DynamicWindowTitle => LocalizationManager.Instance.Get("PluginB", "WindowTitle");
+    public string DynamicWindowTitle => _localization.Get("PluginB", "WindowTitle");
 
-    public string DynamicWelcome => LocalizationManager.Instance.Get("PluginB", "Welcome");
+    public string DynamicWelcome => _localization.Get("PluginB", "Welcome");
 
-    public string DynamicSignIn => LocalizationManager.Instance.Get("PluginB", "SignIn");
+    public string DynamicSignIn => _localization.Get("PluginB", "SignIn");
 
-    public string DynamicLogout => LocalizationManager.Instance.Get("PluginB", "Logout");
+    public string DynamicLogout => _localization.Get("PluginB", "Logout");
 
-    public string DynamicGreeting => string.Format(LocalizationManager.Instance.Get("PluginB", "Greeting"), UserName);
+    public string DynamicGreeting => string.Format(_localization.Get("PluginB", "Greeting"), UserName);
 
     // --- Locale switching ---------------------------------------------------------------------
 
-    public string CurrentLocale => LocalizationManager.Instance.CurrentLocale;
+    public string CurrentLocale => _localization.CurrentLocale;
 
     partial void OnUserNameChanged(string value)
     {
@@ -66,7 +79,7 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void ChangeLocale(string locale)
     {
-        LocalizationManager.Instance.CurrentLocale = locale;
+        _localization.CurrentLocale = locale;
     }
 
     [RelayCommand(CanExecute = nameof(CanLoadPluginB))]

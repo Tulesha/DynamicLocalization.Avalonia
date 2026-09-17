@@ -22,7 +22,8 @@ tests/DynamicAvaloniaLocalization.HeadlessTests/  Avalonia.Headless.XUnit: AXAML
 
 ## Package versions
 
-Package versions are centralized via [NuGet Central Package Management](https://learn.microsoft.com/nuget/consume-packages/central-package-management):
+Package versions are centralized
+via [NuGet Central Package Management](https://learn.microsoft.com/nuget/consume-packages/central-package-management):
 `Directory.Packages.props` at the repo root sets `ManagePackageVersionsCentrally=true` and
 imports every file under `build/`. **Each package gets its own `build/<PackageId>.props` file**
 containing a single `<PackageVersion>` item - no grouping, no shared version properties. To bump
@@ -141,7 +142,8 @@ once with:
 dotnet build samples/Plugins/PluginA/PluginA.csproj -p:EmitCompilerGeneratedFiles=true
 ```
 
-then read `samples/Plugins/PluginA/obj/Debug/net8.0/generated/DynamicAvaloniaLocalization.SourceGenerator/.../PluginA.Localization.g.cs`
+then read
+`samples/Plugins/PluginA/obj/Debug/net8.0/generated/DynamicAvaloniaLocalization.SourceGenerator/.../PluginA.Localization.g.cs`
 directly - don't trust it compiles just because the test assertions on partial strings pass.
 
 For UI-affecting changes, there's no browser to check against (this is a native Avalonia desktop

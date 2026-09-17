@@ -302,6 +302,25 @@ public class LocalizationManagerTests
     }
 
     [Fact]
+    public void LocalizationManager_ImplementsILocalizationManager()
+    {
+        var manager = new LocalizationManager();
+
+        Assert.IsAssignableFrom<ILocalizationManager>(manager);
+    }
+
+    [Fact]
+    public void ILocalizationManager_Get_WorksThroughTheInterface()
+    {
+        ILocalizationManager manager = new LocalizationManager();
+        manager.RegisterModule("PluginA", new[] { Entry("Welcome", ("En", "Welcome"), ("Ru", "Добро пожаловать")) });
+
+        manager.CurrentLocale = "Ru";
+
+        Assert.Equal("Добро пожаловать", manager.Get("PluginA", "Welcome"));
+    }
+
+    [Fact]
     public void RegisterModule_FromMultipleThreads_DoesNotLoseEntries()
     {
         var manager = new LocalizationManager();

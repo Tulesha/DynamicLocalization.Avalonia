@@ -32,10 +32,22 @@ public class MainWindowViewModelTests : IDisposable
         return textBlock;
     }
 
+    /// <summary>
+    ///     Every test below wires the ViewModel to <see cref="LocalizationManager.Instance" />
+    ///     rather than an isolated instance: <see cref="Markup.LocalizeExtension" /> and the
+    ///     generated <c>PluginALocalization</c> accessors these tests exercise are hardwired to
+    ///     that singleton (see <see cref="ILocalizationManager" />'s remarks), so an isolated
+    ///     instance would silently desync from what PluginA actually resolves against.
+    /// </summary>
+    private static MainWindowViewModel CreateViewModel()
+    {
+        return new MainWindowViewModel(LocalizationManager.Instance);
+    }
+
     [AvaloniaFact]
     public void StaticWindowTitle_ReflectsPluginAGeneratedAccessor()
     {
-        var vm = new MainWindowViewModel();
+        var vm = CreateViewModel();
         var textBlock = BindText(vm, nameof(MainWindowViewModel.StaticWindowTitle));
 
         Assert.Equal("Authentication A", textBlock.Text);
@@ -44,7 +56,7 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void BoundTextBlock_UpdatesAutomatically_WhenLocaleChanges()
     {
-        var vm = new MainWindowViewModel();
+        var vm = CreateViewModel();
         var textBlock = BindText(vm, nameof(MainWindowViewModel.StaticWindowTitle));
         Assert.Equal("Authentication A", textBlock.Text);
 
@@ -56,7 +68,7 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void BoundTextBlock_SwitchingBackAndForth_IsFullyReversible()
     {
-        var vm = new MainWindowViewModel();
+        var vm = CreateViewModel();
         var textBlock = BindText(vm, nameof(MainWindowViewModel.StaticWindowTitle));
 
         vm.ChangeLocaleCommand.Execute("Ru");
@@ -68,7 +80,8 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void StaticGreeting_FormatsUserNameIntoTemplate()
     {
-        var vm = new MainWindowViewModel { UserName = "Bob" };
+        var vm = CreateViewModel();
+        vm.UserName = "Bob";
         var textBlock = BindText(vm, nameof(MainWindowViewModel.StaticGreeting));
 
         Assert.Equal("Hello, Bob!", textBlock.Text);
@@ -77,7 +90,8 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void StaticGreeting_UpdatesWhenUserNameChanges()
     {
-        var vm = new MainWindowViewModel { UserName = "Bob" };
+        var vm = CreateViewModel();
+        vm.UserName = "Bob";
         var textBlock = BindText(vm, nameof(MainWindowViewModel.StaticGreeting));
 
         vm.UserName = "Carol";
@@ -88,7 +102,8 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void StaticGreeting_ReactsToLocaleChange()
     {
-        var vm = new MainWindowViewModel { UserName = "Bob" };
+        var vm = CreateViewModel();
+        vm.UserName = "Bob";
         var textBlock = BindText(vm, nameof(MainWindowViewModel.StaticGreeting));
 
         vm.ChangeLocaleCommand.Execute("Ru");
@@ -99,7 +114,7 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void NewViewModel_StartsWithPluginBNotLoaded()
     {
-        var vm = new MainWindowViewModel();
+        var vm = CreateViewModel();
 
         Assert.False(vm.IsPluginBLoaded);
         Assert.True(vm.LoadPluginBCommand.CanExecute(null));
@@ -108,7 +123,7 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void LoadPluginB_RegistersModule_AndBoundTextReflectsItImmediately()
     {
-        var vm = new MainWindowViewModel();
+        var vm = CreateViewModel();
         var textBlock = BindText(vm, nameof(MainWindowViewModel.DynamicWindowTitle));
 
         vm.LoadPluginBCommand.Execute(null);
@@ -121,7 +136,8 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void LoadPluginB_DynamicGreeting_FormatsUserNameAfterLoad()
     {
-        var vm = new MainWindowViewModel { UserName = "Dana" };
+        var vm = CreateViewModel();
+        vm.UserName = "Dana";
         var textBlock = BindText(vm, nameof(MainWindowViewModel.DynamicGreeting));
 
         vm.LoadPluginBCommand.Execute(null);
@@ -132,7 +148,7 @@ public class MainWindowViewModelTests : IDisposable
     [AvaloniaFact]
     public void LoadPluginB_ThenLocaleSwitch_UpdatesDynamicTextToo()
     {
-        var vm = new MainWindowViewModel();
+        var vm = CreateViewModel();
         var textBlock = BindText(vm, nameof(MainWindowViewModel.DynamicWindowTitle));
 
         vm.LoadPluginBCommand.Execute(null);

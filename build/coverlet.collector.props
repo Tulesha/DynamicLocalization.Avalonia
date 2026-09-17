@@ -1,7 +1,7 @@
 <Project>
 
-  <ItemGroup>
-    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="coverlet.collector" Version="6.0.2"/>
+    </ItemGroup>
 
 </Project>

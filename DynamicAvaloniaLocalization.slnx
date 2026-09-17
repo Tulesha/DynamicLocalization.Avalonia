@@ -23,18 +23,20 @@
         <File Path="AGENTS.md"/>
     </Folder>
     <Folder Name="/samples/">
-        <Project Path="samples/SampleApp/SampleApp.csproj" />
+        <Project Path="samples/SampleApp/SampleApp.csproj"/>
     </Folder>
     <Folder Name="/samples/Plugins/">
-        <Project Path="samples/Plugins/PluginA/PluginA.csproj" />
-        <Project Path="samples/Plugins/PluginB/PluginB.csproj" />
+        <Project Path="samples/Plugins/PluginA/PluginA.csproj"/>
+        <Project Path="samples/Plugins/PluginB/PluginB.csproj"/>
     </Folder>
     <Folder Name="/src/">
-        <Project Path="src/DynamicAvaloniaLocalization.SourceGenerator/DynamicAvaloniaLocalization.SourceGenerator.csproj" />
-        <Project Path="src/DynamicAvaloniaLocalization/DynamicAvaloniaLocalization.csproj" />
+        <Project
+                Path="src/DynamicAvaloniaLocalization.SourceGenerator/DynamicAvaloniaLocalization.SourceGenerator.csproj"/>
+        <Project Path="src/DynamicAvaloniaLocalization/DynamicAvaloniaLocalization.csproj"/>
     </Folder>
     <Folder Name="/tests/">
-        <Project Path="tests/DynamicAvaloniaLocalization.HeadlessTests/DynamicAvaloniaLocalization.HeadlessTests.csproj" />
-        <Project Path="tests/DynamicAvaloniaLocalization.Tests/DynamicAvaloniaLocalization.Tests.csproj" />
+        <Project
+                Path="tests/DynamicAvaloniaLocalization.HeadlessTests/DynamicAvaloniaLocalization.HeadlessTests.csproj"/>
+        <Project Path="tests/DynamicAvaloniaLocalization.Tests/DynamicAvaloniaLocalization.Tests.csproj"/>
     </Folder>
 </Solution>

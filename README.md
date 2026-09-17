@@ -131,12 +131,12 @@ immediately, with no restart and no manual refresh calls.
 Both paths register with the exact same `LocalizationManager.Instance` - the only difference is
 *when* and *how* the plugin assembly reaches the process.
 
-| | Static | Dynamic |
-|---|---|---|
-| How the plugin is referenced | Normal `ProjectReference` (or NuGet package) | Not referenced at compile time at all |
-| How it reaches the process | Loaded automatically as part of normal .NET assembly resolution | `Assembly.LoadFrom("path/to/Plugin.dll")` at runtime, e.g. from a "plugins" folder |
-| How you consume it | The generated typed class (`PluginALocalization.WindowTitle`) | `LocalizationManager.Instance.Get("PluginB", "WindowTitle")` - there's no compile-time type to reference |
-| AXAML | `{loc:Localize PluginA.WindowTitle}` | `{loc:Localize PluginB.WindowTitle}` - identical syntax, since it's just a module/key string either way |
+|                              | Static                                                          | Dynamic                                                                                                  |
+|------------------------------|-----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| How the plugin is referenced | Normal `ProjectReference` (or NuGet package)                    | Not referenced at compile time at all                                                                    |
+| How it reaches the process   | Loaded automatically as part of normal .NET assembly resolution | `Assembly.LoadFrom("path/to/Plugin.dll")` at runtime, e.g. from a "plugins" folder                       |
+| How you consume it           | The generated typed class (`PluginALocalization.WindowTitle`)   | `LocalizationManager.Instance.Get("PluginB", "WindowTitle")` - there's no compile-time type to reference |
+| AXAML                        | `{loc:Localize PluginA.WindowTitle}`                            | `{loc:Localize PluginB.WindowTitle}` - identical syntax, since it's just a module/key string either way  |
 
 One CLR subtlety both paths need to account for: a `[ModuleInitializer]` only runs **before the
 first access of any member in that module** - not simply because the assembly was loaded or
@@ -172,6 +172,52 @@ See the sample app's `App.axaml.cs` and `MainWindowViewModel.LoadPluginB()` for 
   markup extension shown above.
 - **`LocalizationModuleLoader.EnsureLoaded(...)`** - forces a plugin's module initializer to run
   immediately; see [Loading modules](#loading-modules-static-vs-dynamic).
+- **`ILocalizationManager`** - the interface `LocalizationManager` implements, for hand-written
+  code (ViewModels, services) that wants to depend on an abstraction instead of the concrete
+  singleton; see [Dependency injection](#dependency-injection) below.
+
+## Dependency injection
+
+`LocalizationManager` implements `ILocalizationManager`, so a ViewModel or service can take it as
+a constructor dependency instead of reading `LocalizationManager.Instance` directly - useful for
+unit-testing that code against a fake/isolated instance instead of process-wide global state.
+
+```csharp
+public partial class MainWindowViewModel : ObservableObject
+{
+    private readonly ILocalizationManager _localization;
+
+    public MainWindowViewModel(ILocalizationManager localization)
+    {
+        _localization = localization;
+        _localization.CultureChanged += (_, _) => OnPropertyChanged(string.Empty);
+    }
+
+    public string DynamicWindowTitle => _localization.Get("PluginB", "WindowTitle");
+}
+```
+
+Bind the interface to the singleton once, at composition root, with whatever container you use -
+e.g. `Microsoft.Extensions.DependencyInjection`:
+
+```csharp
+var services = new ServiceCollection();
+services.AddSingleton<ILocalizationManager>(LocalizationManager.Instance);
+services.AddTransient<MainWindowViewModel>();
+
+var provider = services.BuildServiceProvider();
+var vm = provider.GetRequiredService<MainWindowViewModel>();
+```
+
+Bind to `LocalizationManager.Instance` itself, not a fresh `new LocalizationManager()` - both
+`LocalizeExtension` (AXAML `{loc:Localize ...}` bindings) and the source generator's emitted
+accessors (`PluginALocalization.WindowTitle`) are hardwired to that same singleton instance and
+can't be redirected via DI (a markup extension is instantiated by the XAML loader, and a generated
+accessor is a static property - neither has a constructor to inject into). Registering a different
+instance would just split the app into two locales that never see each other's `RegisterModule`
+calls or locale switches. What DI buys you here is a seam for the code you *do* write by hand, not
+a fully container-managed localization stack - see the sample app's `App.axaml.cs` for the
+container wiring and `MainWindowViewModel`'s constructor for the consuming side.
 
 ## Repository layout
 

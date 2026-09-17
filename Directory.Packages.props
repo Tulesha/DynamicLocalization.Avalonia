@@ -1,25 +1,26 @@
 <Project>
 
-  <PropertyGroup>
-    <!-- NuGet Central Package Management: every project declares which packages it wants
-         (bare <PackageReference Include="X" />, no Version) and the version comes from
-         build/<PackageId>.props - one file per package, so bumping a version never touches
-         a .csproj. -->
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
+    <PropertyGroup>
+        <!-- NuGet Central Package Management: every project declares which packages it wants
+             (bare <PackageReference Include="X" />, no Version) and the version comes from
+             build/<PackageId>.props - one file per package, so bumping a version never touches
+             a .csproj. -->
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
 
-  <Import Project="build/Avalonia.props" />
-  <Import Project="build/Avalonia.Desktop.props" />
-  <Import Project="build/Avalonia.Themes.Fluent.props" />
-  <Import Project="build/Avalonia.Fonts.Inter.props" />
-  <Import Project="build/Avalonia.Diagnostics.props" />
-  <Import Project="build/Avalonia.Headless.props" />
-  <Import Project="build/Avalonia.Headless.XUnit.props" />
-  <Import Project="build/CommunityToolkit.Mvvm.props" />
-  <Import Project="build/Microsoft.CodeAnalysis.CSharp.props" />
-  <Import Project="build/Microsoft.NET.Test.Sdk.props" />
-  <Import Project="build/xunit.props" />
-  <Import Project="build/xunit.runner.visualstudio.props" />
-  <Import Project="build/coverlet.collector.props" />
+    <Import Project="build/Avalonia.props"/>
+    <Import Project="build/Avalonia.Desktop.props"/>
+    <Import Project="build/Avalonia.Themes.Fluent.props"/>
+    <Import Project="build/Avalonia.Fonts.Inter.props"/>
+    <Import Project="build/Avalonia.Diagnostics.props"/>
+    <Import Project="build/Avalonia.Headless.props"/>
+    <Import Project="build/Avalonia.Headless.XUnit.props"/>
+    <Import Project="build/CommunityToolkit.Mvvm.props"/>
+    <Import Project="build/Microsoft.Extensions.DependencyInjection.props"/>
+    <Import Project="build/Microsoft.CodeAnalysis.CSharp.props"/>
+    <Import Project="build/Microsoft.NET.Test.Sdk.props"/>
+    <Import Project="build/xunit.props"/>
+    <Import Project="build/xunit.runner.visualstudio.props"/>
+    <Import Project="build/coverlet.collector.props"/>
 
 </Project>

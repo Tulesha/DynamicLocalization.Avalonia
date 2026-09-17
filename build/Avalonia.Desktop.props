@@ -1,7 +1,7 @@
 <Project>
 
-  <ItemGroup>
-    <PackageVersion Include="Avalonia.Desktop" Version="11.3.18" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="Avalonia.Desktop" Version="11.3.18"/>
+    </ItemGroup>
 
 </Project>

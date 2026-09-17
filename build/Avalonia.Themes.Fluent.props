@@ -1,7 +1,7 @@
 <Project>
 
-  <ItemGroup>
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.18" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.18"/>
+    </ItemGroup>
 
 </Project>

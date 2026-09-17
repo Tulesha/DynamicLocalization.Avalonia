@@ -9,7 +9,12 @@ namespace DynamicAvaloniaLocalization;
 ///     Raises change notifications so that Avalonia bindings and view models can refresh
 ///     without an application restart.
 /// </summary>
-public sealed class LocalizationManager : INotifyPropertyChanged
+/// <remarks>
+///     Implements <see cref="ILocalizationManager" /> so hand-written consumers can depend on the
+///     interface (e.g. via DI) instead of the concrete type - see that interface's remarks for why
+///     <see cref="Markup.LocalizeExtension" /> and generated accessors don't.
+/// </remarks>
+public sealed class LocalizationManager : ILocalizationManager
 {
     private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, LocalizationEntry>> _modules = new();
 

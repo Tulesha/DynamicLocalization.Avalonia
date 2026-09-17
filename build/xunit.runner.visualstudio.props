@@ -1,7 +1,7 @@
 <Project>
 
-  <ItemGroup>
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2"/>
+    </ItemGroup>
 
 </Project>

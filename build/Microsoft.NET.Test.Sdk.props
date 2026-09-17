@@ -1,7 +1,7 @@
 <Project>
 
-  <ItemGroup>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1"/>
+    </ItemGroup>
 
 </Project>

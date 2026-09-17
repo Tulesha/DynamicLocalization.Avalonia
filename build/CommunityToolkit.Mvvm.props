@@ -1,7 +1,7 @@
 <Project>
 
-  <ItemGroup>
-    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
+    </ItemGroup>
 
 </Project>
