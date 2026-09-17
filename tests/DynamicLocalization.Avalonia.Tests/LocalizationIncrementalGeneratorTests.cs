@@ -1,12 +1,12 @@
 using System.Collections.Immutable;
 using System.Text;
-using DynamicAvaloniaLocalization.SourceGenerator;
+using DynamicLocalization.Avalonia.SourceGenerator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 using Xunit;
 
-namespace DynamicAvaloniaLocalization.Tests;
+namespace DynamicLocalization.Avalonia.Tests;
 
 /// <summary>
 ///     Drives <see cref="LocalizationIncrementalGenerator" /> directly through <see cref="GeneratorDriver" />,
@@ -19,7 +19,7 @@ public class LocalizationIncrementalGeneratorTests
         RunGenerator(
             string assemblyName, string localizationJson)
     {
-        // typeof(...) forces DynamicAvaloniaLocalization.dll to be loaded regardless of test
+        // typeof(...) forces DynamicLocalization.Avalonia.dll to be loaded regardless of test
         // execution order, so the generated code's references to it always resolve below.
         _ = typeof(LocalizationManager);
 

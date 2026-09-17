@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace DynamicAvaloniaLocalization.SourceGenerator;
+namespace DynamicLocalization.Avalonia.SourceGenerator;
 
 /// <summary>One "localization.json" row: a key plus its per-locale translations, in file order.</summary>
 internal readonly struct JsonLocalizationEntry

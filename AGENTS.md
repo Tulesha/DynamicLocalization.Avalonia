@@ -11,13 +11,13 @@ properties. See [README.md](README.md) for the user-facing overview and usage ex
 ## Solution layout
 
 ```
-src/DynamicAvaloniaLocalization/               Core library: LocalizationManager, LocalizeExtension, LocalizationModuleLoader
-src/DynamicAvaloniaLocalization.SourceGenerator/  Incremental generator (netstandard2.0), turns localization.json into typed accessors
+src/DynamicLocalization.Avalonia/               Core library: LocalizationManager, LocalizeExtension, LocalizationModuleLoader
+src/DynamicLocalization.Avalonia.SourceGenerator/  Incremental generator (netstandard2.0), turns localization.json into typed accessors
 samples/Plugins/PluginA/                       Sample plugin, statically referenced by SampleApp
 samples/Plugins/PluginB/                       Sample plugin, loaded at runtime via Assembly.LoadFrom
 samples/SampleApp/                             Avalonia MVVM demo (CommunityToolkit.Mvvm)
-tests/DynamicAvaloniaLocalization.Tests/       xUnit: manager, JSON parsing, generator, module loader
-tests/DynamicAvaloniaLocalization.HeadlessTests/  Avalonia.Headless.XUnit: AXAML bindings + real ViewModel
+tests/DynamicLocalization.Avalonia.Tests/       xUnit: manager, JSON parsing, generator, module loader
+tests/DynamicLocalization.Avalonia.HeadlessTests/  Avalonia.Headless.XUnit: AXAML bindings + real ViewModel
 ```
 
 ## Package versions
@@ -49,8 +49,8 @@ generators run inside the host IDE/compiler process, not the target app's runtim
 
 ## Before you touch anything
 
-Read [src/DynamicAvaloniaLocalization/LocalizationManager.cs](src/DynamicAvaloniaLocalization/LocalizationManager.cs)
-and [src/DynamicAvaloniaLocalization.SourceGenerator/LocalizationIncrementalGenerator.cs](src/DynamicAvaloniaLocalization.SourceGenerator/LocalizationIncrementalGenerator.cs)
+Read [src/DynamicLocalization.Avalonia/LocalizationManager.cs](src/DynamicLocalization.Avalonia/LocalizationManager.cs)
+and [src/DynamicLocalization.Avalonia.SourceGenerator/LocalizationIncrementalGenerator.cs](src/DynamicLocalization.Avalonia.SourceGenerator/LocalizationIncrementalGenerator.cs)
 first - nearly every feature in this repo is one of those two files reacting to a change in the
 other. If you're changing the generated code's shape, check `LocalizationIncrementalGeneratorTests.cs`
 for the exact string assertions that will need updating too.
@@ -71,7 +71,7 @@ for the exact string assertions that will need updating too.
 
 2. **`LocalizationManager` is a true singleton (`Instance`), but the constructor is `internal`.**
    Tests new up isolated instances (`new LocalizationManager()`) via `InternalsVisibleTo` to
-   `DynamicAvaloniaLocalization.Tests` and `DynamicAvaloniaLocalization.HeadlessTests` instead of
+   `DynamicLocalization.Avalonia.Tests` and `DynamicLocalization.Avalonia.HeadlessTests` instead of
    mutating the shared `Instance` and fighting test isolation. Prefer this pattern for new unit
    tests. Tests that must use `Instance` directly (because they exercise `LocalizeExtension`,
    which hardcodes `LocalizationManager.Instance` as its binding source) live under
@@ -113,8 +113,8 @@ for the exact string assertions that will need updating too.
 
 1. New class library project under `samples/Plugins/<Name>/`, targeting `net8.0`.
 2. `<AdditionalFiles Include="localization.json" />` + a `ProjectReference` to
-   `DynamicAvaloniaLocalization` + a `ProjectReference` to
-   `DynamicAvaloniaLocalization.SourceGenerator` with `OutputItemType="Analyzer"` and
+   `DynamicLocalization.Avalonia` + a `ProjectReference` to
+   `DynamicLocalization.Avalonia.SourceGenerator` with `OutputItemType="Analyzer"` and
    `ReferenceOutputAssembly="false"`. Copy an existing plugin's `.csproj` - they're all identical
    modulo the assembly name.
 3. To wire it into `SampleApp` **statically**: add a normal `ProjectReference`, and call
@@ -129,8 +129,8 @@ for the exact string assertions that will need updating too.
 ## Verifying a change
 
 ```bash
-dotnet build DynamicAvaloniaLocalization.slnx
-dotnet test DynamicAvaloniaLocalization.slnx
+dotnet build DynamicLocalization.Avalonia.slnx
+dotnet test DynamicLocalization.Avalonia.slnx
 ```
 
 Both must be clean (0 warnings, 0 errors; all tests green) before calling anything done - the
@@ -143,7 +143,7 @@ dotnet build samples/Plugins/PluginA/PluginA.csproj -p:EmitCompilerGeneratedFile
 ```
 
 then read
-`samples/Plugins/PluginA/obj/Debug/net8.0/generated/DynamicAvaloniaLocalization.SourceGenerator/.../PluginA.Localization.g.cs`
+`samples/Plugins/PluginA/obj/Debug/net8.0/generated/DynamicLocalization.Avalonia.SourceGenerator/.../PluginA.Localization.g.cs`
 directly - don't trust it compiles just because the test assertions on partial strings pass.
 
 For UI-affecting changes, there's no browser to check against (this is a native Avalonia desktop
@@ -153,7 +153,7 @@ app). Run the sample and interact with it, or at minimum smoke-test that it star
 dotnet run --project samples/SampleApp/SampleApp.csproj
 ```
 
-The headless test suite (`tests/DynamicAvaloniaLocalization.HeadlessTests`) is the primary
+The headless test suite (`tests/DynamicLocalization.Avalonia.HeadlessTests`) is the primary
 automated coverage for AXAML/binding behavior - extend it rather than relying on manual
 verification alone.
 
@@ -163,5 +163,5 @@ verification alone.
   constraints above for the kind of thing that deserves one).
 - Keep `WarningsAsErrors=nullable` passing - don't suppress nullable warnings with `!` unless the
   non-null invariant is actually guaranteed at that point.
-- New public API needs both a unit test (`DynamicAvaloniaLocalization.Tests`) and, if it affects
+- New public API needs both a unit test (`DynamicLocalization.Avalonia.Tests`) and, if it affects
   AXAML/binding behavior, a headless test.

@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace DynamicAvaloniaLocalization.Tests;
+namespace DynamicLocalization.Avalonia.Tests;
 
 /// <summary>
 ///     Exercises a fresh, isolated <see cref="LocalizationManager" /> instance (constructible only

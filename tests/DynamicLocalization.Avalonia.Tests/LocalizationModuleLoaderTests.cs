@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Xunit;
 
-namespace DynamicAvaloniaLocalization.Tests;
+namespace DynamicLocalization.Avalonia.Tests;
 
 /// <summary>
 ///     Proves the exact bug this helper exists to fix: the CLR does not run a module's

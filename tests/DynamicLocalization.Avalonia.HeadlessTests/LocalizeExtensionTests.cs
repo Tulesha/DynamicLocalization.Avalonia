@@ -1,9 +1,9 @@
 using Avalonia.Headless.XUnit;
-using DynamicAvaloniaLocalization.HeadlessTests.Views;
+using DynamicLocalization.Avalonia.HeadlessTests.Views;
 using PluginA.Generated;
 using Xunit;
 
-namespace DynamicAvaloniaLocalization.HeadlessTests;
+namespace DynamicLocalization.Avalonia.HeadlessTests;
 
 /// <summary>
 ///     Verifies the AXAML side of dynamic localization: {loc:Localize ...} bindings resolve

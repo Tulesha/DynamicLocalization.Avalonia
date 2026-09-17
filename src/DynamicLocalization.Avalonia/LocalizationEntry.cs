@@ -1,4 +1,4 @@
-namespace DynamicAvaloniaLocalization;
+namespace DynamicLocalization.Avalonia;
 
 /// <summary>
 ///     A single localizable string: a key plus its translated text per locale.

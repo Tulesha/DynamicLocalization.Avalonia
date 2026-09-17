@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\DynamicAvaloniaLocalization\DynamicAvaloniaLocalization.csproj"/>
+        <ProjectReference Include="..\..\src\DynamicLocalization.Avalonia\DynamicLocalization.Avalonia.csproj"/>
         <!-- Statically linked plugin: compiled in, registers itself via [ModuleInitializer] at startup. -->
         <ProjectReference Include="..\Plugins\PluginA\PluginA.csproj"/>
         <!-- Dynamically loaded plugin: built so it's available on disk, but NOT linked into this

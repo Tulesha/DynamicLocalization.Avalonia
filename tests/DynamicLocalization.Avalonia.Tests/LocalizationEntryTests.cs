@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace DynamicAvaloniaLocalization.Tests;
+namespace DynamicLocalization.Avalonia.Tests;
 
 public class LocalizationEntryTests
 {

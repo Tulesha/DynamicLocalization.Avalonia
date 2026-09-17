@@ -1,7 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:loc="using:DynamicAvaloniaLocalization.Markup"
-             x:Class="DynamicAvaloniaLocalization.HeadlessTests.Views.LocalizeExtensionTestView">
+             xmlns:loc="using:DynamicLocalization.Avalonia.Markup"
+             x:Class="DynamicLocalization.Avalonia.HeadlessTests.Views.LocalizeExtensionTestView">
     <StackPanel>
         <TextBlock x:Name="WindowTitleText" x:FieldModifier="public"
                    Text="{loc:Localize PluginA.WindowTitle}" />

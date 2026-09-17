@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\DynamicAvaloniaLocalization\DynamicAvaloniaLocalization.csproj"/>
+        <ProjectReference Include="..\..\src\DynamicLocalization.Avalonia\DynamicLocalization.Avalonia.csproj"/>
         <!-- Pulls in PluginA transitively (it registers itself via [ModuleInitializer] on load). -->
         <ProjectReference Include="..\..\samples\SampleApp\SampleApp.csproj"/>
         <!-- Same "unknown at compile time" setup as SampleApp: built for its output, never linked. -->

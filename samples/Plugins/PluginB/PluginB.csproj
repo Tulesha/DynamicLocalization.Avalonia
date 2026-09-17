@@ -13,8 +13,8 @@
     <ItemGroup>
         <!-- Not referenced by SampleApp at compile time: SampleApp loads this assembly dynamically
              at runtime via Assembly.LoadFrom to demonstrate the runtime-plugin scenario. -->
-        <ProjectReference Include="..\..\..\src\DynamicAvaloniaLocalization\DynamicAvaloniaLocalization.csproj"/>
-        <ProjectReference Include="..\..\..\src\DynamicAvaloniaLocalization.SourceGenerator\DynamicAvaloniaLocalization.SourceGenerator.csproj"
+        <ProjectReference Include="..\..\..\src\DynamicLocalization.Avalonia\DynamicLocalization.Avalonia.csproj"/>
+        <ProjectReference Include="..\..\..\src\DynamicLocalization.Avalonia.SourceGenerator\DynamicLocalization.Avalonia.SourceGenerator.csproj"
                           OutputItemType="Analyzer"
                           ReferenceOutputAssembly="false"/>
     </ItemGroup>

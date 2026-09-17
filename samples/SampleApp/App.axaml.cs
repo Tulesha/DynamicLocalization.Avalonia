@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using DynamicAvaloniaLocalization;
+using DynamicLocalization.Avalonia;
 using Microsoft.Extensions.DependencyInjection;
 using PluginA.Generated;
 using SampleApp.ViewModels;

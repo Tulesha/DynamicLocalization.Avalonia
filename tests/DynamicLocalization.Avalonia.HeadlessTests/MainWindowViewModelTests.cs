@@ -4,7 +4,7 @@ using Avalonia.Headless.XUnit;
 using SampleApp.ViewModels;
 using Xunit;
 
-namespace DynamicAvaloniaLocalization.HeadlessTests;
+namespace DynamicLocalization.Avalonia.HeadlessTests;
 
 /// <summary>
 ///     Verifies the ViewModel/code side of dynamic localization using the real, shipped

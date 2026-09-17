@@ -15,8 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\DynamicAvaloniaLocalization\DynamicAvaloniaLocalization.csproj"/>
-        <ProjectReference Include="..\..\src\DynamicAvaloniaLocalization.SourceGenerator\DynamicAvaloniaLocalization.SourceGenerator.csproj"/>
+        <ProjectReference Include="..\..\src\DynamicLocalization.Avalonia\DynamicLocalization.Avalonia.csproj"/>
+        <ProjectReference Include="..\..\src\DynamicLocalization.Avalonia.SourceGenerator\DynamicLocalization.Avalonia.SourceGenerator.csproj"/>
     </ItemGroup>
 
 </Project>

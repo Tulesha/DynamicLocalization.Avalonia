@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <PackageId>Tulesha.DynamicLocalization.Avalonia</PackageId>
+        <Description>Dynamic, hot-swappable localization for Avalonia applications with plugin support.</Description>
+        <!-- TODO: PackageProjectUrl/RepositoryUrl need a real repo URL before publishing - see
+             README's "Publishing to NuGet" section. -->
+        <Authors>Tulesha</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>TODO</PackageProjectUrl>
+        <RepositoryUrl>TODO</RepositoryUrl>
+        <PackageTags>avalonia;localization;i18n;source-generator</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <!-- The package carries its own PDB/source-link-style debugging info instead of a
+             separate .snupkg, so a consumer stepping into this library's code "just works". -->
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath=""/>
+        <!-- Build-order dependency only (ReferenceOutputAssembly=false): this project's own code
+             never calls the generator. Its output DLL is packed into analyzers/dotnet/cs below,
+             so installing THIS package also wires up the generator for the consumer - no separate
+             package, no OutputItemType="Analyzer"/ReferenceOutputAssembly dance required from
+             them (that dance is only needed for an in-repo ProjectReference, e.g. the sample
+             plugins in this solution). -->
+        <ProjectReference Include="..\DynamicLocalization.Avalonia.SourceGenerator\DynamicLocalization.Avalonia.SourceGenerator.csproj"
+                          ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+    <!-- Copies the generator's build output into the package's analyzers/dotnet/cs folder. Hooks
+         _GetPackageFiles (not a plain ItemGroup) because the generator's own build must have
+         already run - the ProjectReference above guarantees the build order, this target just
+         needs to run after it. -->
+    <Target Name="AddSourceGeneratorToPackage" BeforeTargets="_GetPackageFiles">
+        <ItemGroup>
+            <None Include="..\DynamicLocalization.Avalonia.SourceGenerator\bin\$(Configuration)\netstandard2.0\DynamicLocalization.Avalonia.SourceGenerator.dll"
+                  Pack="true"
+                  PackagePath="analyzers/dotnet/cs"
+                  Visible="false"/>
+        </ItemGroup>
+    </Target>
+
+</Project>

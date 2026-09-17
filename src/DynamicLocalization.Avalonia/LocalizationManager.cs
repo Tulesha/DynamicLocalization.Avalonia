@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Text.Json;
 
-namespace DynamicAvaloniaLocalization;
+namespace DynamicLocalization.Avalonia;
 
 /// <summary>
 ///     Central registry of localization modules and the current application locale.

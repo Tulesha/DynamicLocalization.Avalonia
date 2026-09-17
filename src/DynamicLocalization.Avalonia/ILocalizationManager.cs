@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace DynamicAvaloniaLocalization;
+namespace DynamicLocalization.Avalonia;
 
 /// <summary>
 ///     Abstraction over <see cref="LocalizationManager" />'s public surface, so hand-written code

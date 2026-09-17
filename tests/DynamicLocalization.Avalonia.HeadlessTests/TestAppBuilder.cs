@@ -1,11 +1,11 @@
 using Avalonia;
 using Avalonia.Headless;
 using Avalonia.Themes.Fluent;
-using DynamicAvaloniaLocalization.HeadlessTests;
+using DynamicLocalization.Avalonia.HeadlessTests;
 
 [assembly: AvaloniaTestApplication(typeof(TestAppBuilder))]
 
-namespace DynamicAvaloniaLocalization.HeadlessTests;
+namespace DynamicLocalization.Avalonia.HeadlessTests;
 
 public class TestAppBuilder
 {

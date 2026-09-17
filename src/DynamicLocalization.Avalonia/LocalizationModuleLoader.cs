@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace DynamicAvaloniaLocalization;
+namespace DynamicLocalization.Avalonia;
 
 /// <summary>
 ///     Forces a plugin assembly's <c>[ModuleInitializer]</c>-based self-registration to run

@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace DynamicAvaloniaLocalization.HeadlessTests.Views;
+namespace DynamicLocalization.Avalonia.HeadlessTests.Views;
 
 public partial class LocalizeExtensionTestView : UserControl
 {

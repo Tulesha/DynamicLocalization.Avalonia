@@ -1,13 +1,13 @@
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DynamicAvaloniaLocalization;
+using DynamicLocalization.Avalonia;
 using PluginA.Generated;
 
 namespace SampleApp.ViewModels;
 
 /// <summary>
-///     Demonstrates the two ways to consume DynamicAvaloniaLocalization from a ViewModel:
+///     Demonstrates the two ways to consume DynamicLocalization.Avalonia from a ViewModel:
 ///     - PluginA (statically referenced) via the source-generated, resx-like typed accessors.
 ///     - PluginB (loaded at runtime, unknown at compile time) via ILocalizationManager.Get(module, key),
 ///     which is the only option available for an assembly the host never compiled against.

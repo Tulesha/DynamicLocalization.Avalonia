@@ -31,12 +31,12 @@
     </Folder>
     <Folder Name="/src/">
         <Project
-                Path="src/DynamicAvaloniaLocalization.SourceGenerator/DynamicAvaloniaLocalization.SourceGenerator.csproj"/>
-        <Project Path="src/DynamicAvaloniaLocalization/DynamicAvaloniaLocalization.csproj"/>
+                Path="src/DynamicLocalization.Avalonia.SourceGenerator/DynamicLocalization.Avalonia.SourceGenerator.csproj"/>
+        <Project Path="src/DynamicLocalization.Avalonia/DynamicLocalization.Avalonia.csproj"/>
     </Folder>
     <Folder Name="/tests/">
         <Project
-                Path="tests/DynamicAvaloniaLocalization.HeadlessTests/DynamicAvaloniaLocalization.HeadlessTests.csproj"/>
-        <Project Path="tests/DynamicAvaloniaLocalization.Tests/DynamicAvaloniaLocalization.Tests.csproj"/>
+                Path="tests/DynamicLocalization.Avalonia.HeadlessTests/DynamicLocalization.Avalonia.HeadlessTests.csproj"/>
+        <Project Path="tests/DynamicLocalization.Avalonia.Tests/DynamicLocalization.Avalonia.Tests.csproj"/>
     </Folder>
 </Solution>

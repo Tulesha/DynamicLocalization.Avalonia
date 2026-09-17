@@ -1,4 +1,4 @@
-# DynamicAvaloniaLocalization
+# DynamicLocalization.Avalonia
 
 A localization library for [Avalonia](https://avaloniaui.net/) applications built around one
 idea: **modules (plugins) ship their own `localization.json`, and the current UI language can
@@ -56,8 +56,8 @@ format them with `string.Format` on the consuming side (see the `Greeting` examp
 </ItemGroup>
 
 <ItemGroup>
-  <ProjectReference Include="path\to\DynamicAvaloniaLocalization.csproj" />
-  <ProjectReference Include="path\to\DynamicAvaloniaLocalization.SourceGenerator.csproj"
+  <ProjectReference Include="path\to\DynamicLocalization.Avalonia.csproj" />
+  <ProjectReference Include="path\to\DynamicLocalization.Avalonia.SourceGenerator.csproj"
                     OutputItemType="Analyzer"
                     ReferenceOutputAssembly="false" />
 </ItemGroup>
@@ -88,7 +88,7 @@ The generator re-runs automatically whenever `localization.json` changes and you
 ### 2. Bind to it from AXAML
 
 ```xml
-<Window xmlns:loc="using:DynamicAvaloniaLocalization.Markup">
+<Window xmlns:loc="using:DynamicLocalization.Avalonia.Markup">
     <TextBlock Text="{loc:Localize PluginA.WindowTitle}" />
     <!-- equivalent, explicit form: -->
     <TextBlock Text="{loc:Localize Module=PluginA, Key=WindowTitle}" />
@@ -168,7 +168,7 @@ See the sample app's `App.axaml.cs` and `MainWindowViewModel.LoadPluginB()` for 
   only (e.g. user-editable/hot-reloadable content).
 - **`CultureChanged`** event - fires whenever `CurrentLocale`, `FallbackLocale`, or the set of
   registered modules changes. Subscribe from a ViewModel to refresh bound properties.
-- **`LocalizeExtension`** (`xmlns:loc="using:DynamicAvaloniaLocalization.Markup"`) - the AXAML
+- **`LocalizeExtension`** (`xmlns:loc="using:DynamicLocalization.Avalonia.Markup"`) - the AXAML
   markup extension shown above.
 - **`LocalizationModuleLoader.EnsureLoaded(...)`** - forces a plugin's module initializer to run
   immediately; see [Loading modules](#loading-modules-static-vs-dynamic).
@@ -222,13 +222,13 @@ container wiring and `MainWindowViewModel`'s constructor for the consuming side.
 ## Repository layout
 
 ```
-src/DynamicAvaloniaLocalization/               Core library
-src/DynamicAvaloniaLocalization.SourceGenerator/  Roslyn incremental generator
+src/DynamicLocalization.Avalonia/               Core library
+src/DynamicLocalization.Avalonia.SourceGenerator/  Roslyn incremental generator
 samples/Plugins/PluginA/                       Sample plugin, referenced statically by SampleApp
 samples/Plugins/PluginB/                       Sample plugin, loaded dynamically at runtime
 samples/SampleApp/                             Avalonia MVVM demo app
-tests/DynamicAvaloniaLocalization.Tests/       xUnit unit tests
-tests/DynamicAvaloniaLocalization.HeadlessTests/  Avalonia.Headless.XUnit UI/binding tests
+tests/DynamicLocalization.Avalonia.Tests/       xUnit unit tests
+tests/DynamicLocalization.Avalonia.HeadlessTests/  Avalonia.Headless.XUnit UI/binding tests
 ```
 
 See [AGENTS.md](AGENTS.md) if you're extending the library or the generator - it documents a few
@@ -248,8 +248,8 @@ strings.
 ## Building and testing
 
 ```bash
-dotnet build DynamicAvaloniaLocalization.slnx
-dotnet test DynamicAvaloniaLocalization.slnx
+dotnet build DynamicLocalization.Avalonia.slnx
+dotnet test DynamicLocalization.Avalonia.slnx
 ```
 
 To inspect what the generator actually produces for a given plugin:
@@ -259,7 +259,7 @@ dotnet build samples/Plugins/PluginA/PluginA.csproj -p:EmitCompilerGeneratedFile
 ```
 
 The generated file lands under
-`samples/Plugins/PluginA/obj/Debug/net8.0/generated/DynamicAvaloniaLocalization.SourceGenerator/.../PluginA.Localization.g.cs`.
+`samples/Plugins/PluginA/obj/Debug/net8.0/generated/DynamicLocalization.Avalonia.SourceGenerator/.../PluginA.Localization.g.cs`.
 
 ## Requirements
 

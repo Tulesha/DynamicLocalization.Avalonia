@@ -1,7 +1,7 @@
 using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 
-namespace DynamicAvaloniaLocalization.Markup;
+namespace DynamicLocalization.Avalonia.Markup;
 
 /// <summary>
 ///     AXAML markup extension for dynamic localization, e.g.

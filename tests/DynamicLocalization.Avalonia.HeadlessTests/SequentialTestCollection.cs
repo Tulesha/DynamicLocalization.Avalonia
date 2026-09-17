@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace DynamicAvaloniaLocalization.HeadlessTests;
+namespace DynamicLocalization.Avalonia.HeadlessTests;
 
 /// <summary>
 ///     All headless tests share this collection so xUnit runs them sequentially: they all read and
@@ -10,5 +10,5 @@ namespace DynamicAvaloniaLocalization.HeadlessTests;
 [CollectionDefinition(Name, DisableParallelization = true)]
 public class SequentialTestCollection
 {
-    public const string Name = "DynamicAvaloniaLocalization.HeadlessTests.Sequential";
+    public const string Name = "DynamicLocalization.Avalonia.HeadlessTests.Sequential";
 }

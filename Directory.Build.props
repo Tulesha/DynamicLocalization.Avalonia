@@ -5,4 +5,17 @@
         <LangVersion>latest</LangVersion>
         <WarningsAsErrors>nullable</WarningsAsErrors>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Only DynamicLocalization.Avalonia.csproj opts back into IsPackable=true. Without this
+             default, "dotnet pack" on the solution also packs the sample apps, the sample
+             plugins, and the test projects - and fails outright, because the source generator
+             project (IncludeBuildOutput=false, no runtime assembly of its own) has nothing to put
+             in a package (NU5017). The generator ships bundled inside the main package's
+             analyzers/dotnet/cs folder instead - see DynamicLocalization.Avalonia.csproj. -->
+        <IsPackable>false</IsPackable>
+        <!-- Centralized so every project's AssemblyVersion/FileVersion/PackageVersion agree.
+             TODO: bump on every release; still pre-1.0 while the public API is settling. -->
+        <Version>0.1.0</Version>
+    </PropertyGroup>
 </Project>

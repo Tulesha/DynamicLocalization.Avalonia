@@ -1,6 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:loc="using:DynamicAvaloniaLocalization.Markup"
+        xmlns:loc="using:DynamicLocalization.Avalonia.Markup"
         xmlns:viewModels="clr-namespace:SampleApp.ViewModels"
         x:Class="SampleApp.Views.MainWindow"
         Title="{Binding StaticWindowTitle}"
