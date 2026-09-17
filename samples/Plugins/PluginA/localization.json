@@ -1,0 +1,27 @@
+[
+  {
+    "Key": "WindowTitle",
+    "Ru": "Авторизация A",
+    "En": "Authentication A"
+  },
+  {
+    "Key": "Welcome",
+    "Ru": "Добро пожаловать A",
+    "En": "Welcome A"
+  },
+  {
+    "Key": "SignIn",
+    "Ru": "Войти A",
+    "En": "Sign in A"
+  },
+  {
+    "Key": "Logout",
+    "Ru": "Выйти A",
+    "En": "Log out A"
+  },
+  {
+    "Key": "Greeting",
+    "Ru": "Привет, {0}!",
+    "En": "Hello, {0}!"
+  }
+]

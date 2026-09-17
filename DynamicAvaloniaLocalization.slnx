@@ -1,0 +1,40 @@
+<Solution>
+    <Folder Name="/build/">
+        <File Path="build/Avalonia.props"/>
+        <File Path="build/Avalonia.Desktop.props"/>
+        <File Path="build/Avalonia.Diagnostics.props"/>
+        <File Path="build/Avalonia.Fonts.Inter.props"/>
+        <File Path="build/Avalonia.Headless.props"/>
+        <File Path="build/Avalonia.Headless.XUnit.props"/>
+        <File Path="build/Avalonia.Themes.Fluent.props"/>
+        <File Path="build/CommunityToolkit.Mvvm.props"/>
+        <File Path="build/coverlet.collector.props"/>
+        <File Path="build/Microsoft.CodeAnalysis.CSharp.props"/>
+        <File Path="build/Microsoft.NET.Test.Sdk.props"/>
+        <File Path="build/xunit.props"/>
+        <File Path="build/xunit.runner.visualstudio.props"/>
+    </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path="Directory.Build.props"/>
+        <File Path="Directory.Packages.props"/>
+        <File Path="NuGet.Config"/>
+        <File Path="global.json"/>
+        <File Path="README.md"/>
+        <File Path="AGENTS.md"/>
+    </Folder>
+    <Folder Name="/samples/">
+        <Project Path="samples/SampleApp/SampleApp.csproj" />
+    </Folder>
+    <Folder Name="/samples/Plugins/">
+        <Project Path="samples/Plugins/PluginA/PluginA.csproj" />
+        <Project Path="samples/Plugins/PluginB/PluginB.csproj" />
+    </Folder>
+    <Folder Name="/src/">
+        <Project Path="src/DynamicAvaloniaLocalization.SourceGenerator/DynamicAvaloniaLocalization.SourceGenerator.csproj" />
+        <Project Path="src/DynamicAvaloniaLocalization/DynamicAvaloniaLocalization.csproj" />
+    </Folder>
+    <Folder Name="/tests/">
+        <Project Path="tests/DynamicAvaloniaLocalization.HeadlessTests/DynamicAvaloniaLocalization.HeadlessTests.csproj" />
+        <Project Path="tests/DynamicAvaloniaLocalization.Tests/DynamicAvaloniaLocalization.Tests.csproj" />
+    </Folder>
+</Solution>

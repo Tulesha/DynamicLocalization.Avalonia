@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <UseAppHost>false</UseAppHost>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
+        <PackageReference Include="coverlet.collector"/>
+        <PackageReference Include="Avalonia"/>
+        <PackageReference Include="Avalonia.Themes.Fluent"/>
+        <PackageReference Include="Avalonia.Fonts.Inter"/>
+        <PackageReference Include="Avalonia.Headless"/>
+        <PackageReference Include="Avalonia.Headless.XUnit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\DynamicAvaloniaLocalization\DynamicAvaloniaLocalization.csproj"/>
+        <!-- Pulls in PluginA transitively (it registers itself via [ModuleInitializer] on load). -->
+        <ProjectReference Include="..\..\samples\SampleApp\SampleApp.csproj"/>
+        <!-- Same "unknown at compile time" setup as SampleApp: built for its output, never linked. -->
+        <ProjectReference Include="..\..\samples\Plugins\PluginB\PluginB.csproj" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+    <Target Name="CopyPluginBToPluginsFolder" AfterTargets="Build">
+        <ItemGroup>
+            <PluginBOutput Include="..\..\samples\Plugins\PluginB\bin\$(Configuration)\net8.0\PluginB.dll"/>
+            <PluginBOutput Include="..\..\samples\Plugins\PluginB\bin\$(Configuration)\net8.0\PluginB.pdb" Condition="Exists('..\..\samples\Plugins\PluginB\bin\$(Configuration)\net8.0\PluginB.pdb')"/>
+        </ItemGroup>
+        <Copy SourceFiles="@(PluginBOutput)" DestinationFolder="$(OutDir)Plugins\" SkipUnchangedFiles="true"/>
+    </Target>
+
+</Project>

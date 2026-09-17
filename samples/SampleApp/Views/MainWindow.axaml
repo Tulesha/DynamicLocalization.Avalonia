@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="using:DynamicAvaloniaLocalization.Markup"
+        xmlns:viewModels="clr-namespace:SampleApp.ViewModels"
+        x:Class="SampleApp.Views.MainWindow"
+        Title="{Binding StaticWindowTitle}"
+        Width="760" Height="640" MinWidth="620" MinHeight="560"
+        x:DataType="viewModels:MainWindowViewModel"
+        x:CompileBindings="True">
+    <ScrollViewer Padding="20">
+        <StackPanel Spacing="16">
+
+            <!-- Locale switch -->
+            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="6" Padding="12">
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <TextBlock Text="Locale:" VerticalAlignment="Center" FontWeight="Bold" />
+                    <Button Content="En" Command="{Binding ChangeLocaleCommand}" CommandParameter="En" />
+                    <Button Content="Ru" Command="{Binding ChangeLocaleCommand}" CommandParameter="Ru" />
+                    <TextBlock Text="{Binding CurrentLocale, StringFormat='Current: {0}'}" VerticalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <!-- PluginA: statically referenced, pure AXAML binding via {loc:Localize} -->
+            <Border BorderBrush="SteelBlue" BorderThickness="1" CornerRadius="6" Padding="12">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="PluginA — static plugin, AXAML binding (no ViewModel involved)" FontWeight="Bold" />
+                    <TextBlock Text="{loc:Localize PluginA.WindowTitle}" />
+                    <TextBlock Text="{loc:Localize PluginA.Welcome}" />
+                    <TextBlock Text="{loc:Localize PluginA.SignIn}" />
+                    <TextBlock Text="{loc:Localize PluginA.Logout}" />
+                </StackPanel>
+            </Border>
+
+            <!-- PluginA: statically referenced, consumed through the ViewModel -->
+            <Border BorderBrush="SeaGreen" BorderThickness="1" CornerRadius="6" Padding="12">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="PluginA — static plugin, via ViewModel (generated typed accessors)"
+                               FontWeight="Bold" />
+                    <TextBlock Text="{Binding StaticWindowTitle}" />
+                    <TextBlock Text="{Binding StaticWelcome}" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Name:" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding UserName}" Width="140" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding StaticGreeting}" FontStyle="Italic" />
+                </StackPanel>
+            </Border>
+
+            <!-- PluginB: not referenced at compile time, loaded dynamically at runtime -->
+            <Border BorderBrush="DarkOrange" BorderThickness="1" CornerRadius="6" Padding="12">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="PluginB — dynamic plugin, loaded at runtime via Assembly.LoadFrom"
+                               FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button Content="Load Plugin B"
+                                Command="{Binding LoadPluginBCommand}" />
+                        <TextBlock Text="{Binding PluginBStatus}" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <!-- Works even though PluginB.dll was never referenced by this project: the
+                         markup extension only needs the "Module.Key" string, resolved at
+                         binding-evaluation time through LocalizationManager. -->
+                    <TextBlock Text="{loc:Localize PluginB.WindowTitle}" IsVisible="{Binding IsPluginBLoaded}" />
+
+                    <StackPanel IsVisible="{Binding IsPluginBLoaded}" Spacing="6">
+                        <TextBlock Text="{Binding DynamicWelcome}" />
+                        <TextBlock Text="{Binding DynamicSignIn}" />
+                        <TextBlock Text="{Binding DynamicLogout}" />
+                        <TextBlock Text="{Binding DynamicGreeting}" FontStyle="Italic" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</Window>

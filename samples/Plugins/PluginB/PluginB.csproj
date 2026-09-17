@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>PluginB</RootNamespace>
+        <AssemblyName>PluginB</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="localization.json"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Not referenced by SampleApp at compile time: SampleApp loads this assembly dynamically
+             at runtime via Assembly.LoadFrom to demonstrate the runtime-plugin scenario. -->
+        <ProjectReference Include="..\..\..\src\DynamicAvaloniaLocalization\DynamicAvaloniaLocalization.csproj"/>
+        <ProjectReference Include="..\..\..\src\DynamicAvaloniaLocalization.SourceGenerator\DynamicAvaloniaLocalization.SourceGenerator.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+</Project>

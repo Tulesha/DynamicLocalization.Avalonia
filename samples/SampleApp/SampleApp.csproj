@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <!-- Kept off on purpose: this sample uses plain reflection bindings for simplicity, and
+             LocalizeExtension already returns a plain runtime Binding regardless of this setting. -->
+        <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia"/>
+        <PackageReference Include="Avalonia.Desktop"/>
+        <PackageReference Include="Avalonia.Themes.Fluent"/>
+        <PackageReference Include="Avalonia.Fonts.Inter"/>
+        <PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'"/>
+        <PackageReference Include="CommunityToolkit.Mvvm"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\DynamicAvaloniaLocalization\DynamicAvaloniaLocalization.csproj"/>
+        <!-- Statically linked plugin: compiled in, registers itself via [ModuleInitializer] at startup. -->
+        <ProjectReference Include="..\Plugins\PluginA\PluginA.csproj"/>
+        <!-- Dynamically loaded plugin: built so it's available on disk, but NOT linked into this
+             assembly (ReferenceOutputAssembly=false) - SampleApp only ever sees it through
+             Assembly.LoadFrom at runtime, exactly like a real out-of-process plugin. -->
+        <ProjectReference Include="..\Plugins\PluginB\PluginB.csproj" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+    <Target Name="CopyPluginBToPluginsFolder" AfterTargets="Build">
+        <ItemGroup>
+            <PluginBOutput Include="..\Plugins\PluginB\bin\$(Configuration)\net8.0\PluginB.dll"/>
+            <PluginBOutput Include="..\Plugins\PluginB\bin\$(Configuration)\net8.0\PluginB.pdb" Condition="Exists('..\Plugins\PluginB\bin\$(Configuration)\net8.0\PluginB.pdb')"/>
+        </ItemGroup>
+        <Copy SourceFiles="@(PluginBOutput)" DestinationFolder="$(OutDir)Plugins\" SkipUnchangedFiles="true"/>
+    </Target>
+
+</Project>

@@ -1,0 +1,7 @@
+<Project>
+
+  <ItemGroup>
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.18" />
+  </ItemGroup>
+
+</Project>
