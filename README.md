@@ -1,5 +1,8 @@
 # DynamicLocalization.Avalonia
 
+[![NuGet](https://img.shields.io/nuget/v/Tulesha.DynamicLocalization.Avalonia.svg)](https://www.nuget.org/packages/Tulesha.DynamicLocalization.Avalonia)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Tulesha.DynamicLocalization.Avalonia.svg)](https://www.nuget.org/packages/Tulesha.DynamicLocalization.Avalonia)
+
 A localization library for [Avalonia](https://avaloniaui.net/) applications built around one
 idea: **modules (plugins) ship their own `localization.json`, and the current UI language can
 change at runtime - in AXAML and in code - without restarting the app.**
